@@ -2,21 +2,46 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.CodeSource;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
+import java.security.ProtectionDomain;
 
-public class CryptOperation {
+public class CryptOperation {//シングルトン
 
-    public SecretKey generateKey() throws NoSuchAlgorithmException {
+    private static final CryptOperation INSTANCE = new CryptOperation();
 
-        KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+    private CryptOperation(){
+
+    }
+
+
+
+    public static CryptOperation getInstance() {
+        return INSTANCE;
+    }
+
+
+    public SecretKey generateKey(){
+
+        KeyGenerator keyGen = null;
+        try {
+            keyGen = KeyGenerator.getInstance("AES");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         keyGen.init(128);
 
 
         return keyGen.generateKey();
     }
 
-    public SecretKey generateKey(byte[] seed) throws NoSuchAlgorithmException {
+    public SecretKey generateKey(byte[] seed) {
         SecretKey encryptSecretKey = new SecretKeySpec(seed, "AES");
 
         return encryptSecretKey;
