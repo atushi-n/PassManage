@@ -208,8 +208,11 @@ public class Frame extends JFrame implements ActionListener {
                 try {
                     String plain = cryptOperation.decrypto(data, secretKey);
                     textArea.setText(plain);
+                    System.out.println(plain);
                 } catch (GeneralSecurityException generalSecurityException) {
                     generalSecurityException.printStackTrace();
+                } catch (UnsupportedEncodingException unsupportedEncodingException) {
+                    unsupportedEncodingException.printStackTrace();
                 }
                 break;
 

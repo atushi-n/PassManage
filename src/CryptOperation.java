@@ -2,6 +2,7 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.security.NoSuchAlgorithmException;
 
@@ -45,11 +46,11 @@ public class CryptOperation {//シングルトン
     }
 
     //復号
-    public String decrypto(byte[] cryptoText, SecretKey key) throws GeneralSecurityException {
+    public String decrypto(byte[] cryptoText, SecretKey key) throws GeneralSecurityException, UnsupportedEncodingException {
         // 書式:"アルゴリズム/ブロックモード/パディング方式"
         Cipher decrypter = Cipher.getInstance("AES/ECB/PKCS5Padding");
         decrypter.init(Cipher.DECRYPT_MODE, key);
 
-        return new String(decrypter.doFinal(cryptoText));
+        return new String(decrypter.doFinal(cryptoText), "UTF-8");
     }
 }

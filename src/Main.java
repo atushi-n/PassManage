@@ -10,6 +10,7 @@ import java.security.*;
 public class Main {
 
     public static void main(String[] args) throws GeneralSecurityException, IOException, URISyntaxException {
+        System.out.println(System.getProperty("file.encoding"));
 
         System.out.println(getApplicationPath(Main.class));
 
